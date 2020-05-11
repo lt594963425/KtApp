@@ -1,4 +1,4 @@
-package com.example.ktapp.ui.base;
+package com.example.ktapp.base;
 
 import android.content.Context;
 

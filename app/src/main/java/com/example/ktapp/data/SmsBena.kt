@@ -1,4 +1,4 @@
-package com.example.ktapp
+package com.example.ktapp.data
 
 import java.io.Serializable
 

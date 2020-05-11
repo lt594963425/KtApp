@@ -1,4 +1,4 @@
-package com.example.ktapp.ui.data;
+package com.example.ktapp.data;
 
 import java.util.List;
 

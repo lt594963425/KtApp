@@ -23,6 +23,6 @@
         android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:text="改变了" />
+        android:text="欢迎页面" />
 </LinearLayout>
 

@@ -3,19 +3,19 @@ package com.example.ktapp.ui.welcome
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.ktapp.User
+import com.example.ktapp.data.People
 
 
 class WelcomeViewModel : ViewModel() {
     // TODO: Implement the ViewModel
 
-    private val users: MutableLiveData<User> by lazy {
-        MutableLiveData<User>().also {
+    private val users: MutableLiveData<People> by lazy {
+        MutableLiveData<People>().also {
             loadUsers()
         }
     }
 
-    fun getUsers(): LiveData<User> {
+    fun getUsers(): LiveData<People> {
         return users
     }
 
@@ -27,8 +27,7 @@ class WelcomeViewModel : ViewModel() {
             } catch (e: InterruptedException) {
                 e.printStackTrace()
             }
-
-            users.postValue(User("哈哈哈哈哈哈哈哈哈"))
+            users.postValue(People("哈哈哈", "40"))
             //                  users.setValue(new User("哈哈哈哈哈哈哈哈哈"));
         }).start()
     }

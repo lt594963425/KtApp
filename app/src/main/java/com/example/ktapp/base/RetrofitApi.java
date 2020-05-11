@@ -1,9 +1,9 @@
-package com.example.ktapp.ui.base;
+package com.example.ktapp.base;
 
 
 
-import com.example.ktapp.ui.data.Translation;
-import com.example.ktapp.ui.data.Translation1;
+import com.example.ktapp.data.Translation;
+import com.example.ktapp.data.Translation1;
 
 import java.util.Map;
 

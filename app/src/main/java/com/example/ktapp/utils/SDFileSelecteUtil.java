@@ -1,4 +1,4 @@
-package com.example.ktapp;
+package com.example.ktapp.utils;
 
 import android.annotation.SuppressLint;
 import android.content.ContentUris;

@@ -8,21 +8,23 @@ import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.ktapp.User;
-import com.example.ktapp.ui.base.ILifecycle;
+import com.example.ktapp.data.People;
+import com.example.ktapp.data.User;
+import com.example.ktapp.base.ILifecycle;
 
 public class StartViewModel extends ViewModel implements ILifecycle {
     // TODO: Implement the ViewModel
     private static final String TAG = "StartViewModel";
-    private MutableLiveData<User> users;
+    private MutableLiveData<People> users;
     private final StartRepertory startRepertory;
 
     public StartViewModel() {
-        users = new MutableLiveData<User>();
+        users = new MutableLiveData<People>();
         startRepertory = new StartRepertory();
+        Log.e(TAG,"初始化");
     }
 
-    public MutableLiveData<User> getUsers() {
+    public MutableLiveData<People> getUsers() {
 
         return users;
     }
@@ -30,7 +32,7 @@ public class StartViewModel extends ViewModel implements ILifecycle {
     /**
      * 加载数据
      */
-    private void loadUsers() {
+    public void loadUsers() {
         // Do an asynchronous operation to fetch users.
         new Thread(new Runnable() {
             @Override
@@ -40,7 +42,7 @@ public class StartViewModel extends ViewModel implements ILifecycle {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                users.postValue(new User("哈哈哈哈哈哈哈哈哈"));
+                users.postValue(new People("哈哈哈哈哈哈哈哈哈","20"));
 //                  users.setValue(new User("哈哈哈哈哈哈哈哈哈"));
             }
         }).start();
@@ -51,7 +53,7 @@ public class StartViewModel extends ViewModel implements ILifecycle {
     public void onCreate(@Nullable LifecycleOwner owner) {
         Log.e(TAG, "onCreate()");
         Log.e(TAG, "当前生命周期状态=" + owner.getLifecycle().getCurrentState().name());
-        loadUsers();
+
     }
 
     @Override

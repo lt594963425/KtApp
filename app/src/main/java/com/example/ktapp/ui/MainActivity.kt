@@ -1,16 +1,19 @@
-package com.example.ktapp
+package com.example.ktapp.ui
 
-import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import com.example.ktapp.databinding.ActivityMainDataBinding
 import android.net.Uri
+import com.example.ktapp.R
+import com.example.ktapp.data.People
+import com.example.ktapp.utils.SDFileSelecteUtil
+import com.example.ktapp.ui.login.LoginActivity
 import com.example.ktapp.ui.start.StartActivity
+import com.example.ktapp.ui.roomdata.RoomDataActivity
 import kotlinx.android.synthetic.main.activity_main_data.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -30,15 +33,17 @@ class MainActivity : AppCompatActivity() {
             this,
             R.layout.activity_main_data
         )
-        val user = User("")
+        val user = People()
         user.setName("Hello")
+        user.setAge("12")
         databinding?.user = user;
         databinding?.setListenerv1 {
             selectedKmlFile()
         }
-        welcome_tv.setOnClickListener { startActivity(Intent(this, StartActivity::class.java)) }
+        start_tv.setOnClickListener { startActivity(Intent(this, StartActivity::class.java)) }
 
-
+        login_tv.setOnClickListener { startActivity(Intent(this, LoginActivity::class.java)) }
+        room_tv.setOnClickListener { startActivity(Intent(this, RoomDataActivity::class.java)) }
 
         GlobalScope.launch(Dispatchers.Unconfined) {
             Log.d("AA", "协程初始化完成，时间: " + System.currentTimeMillis())

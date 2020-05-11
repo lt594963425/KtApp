@@ -1,5 +1,8 @@
 package com.example.ktapp;
 
+import com.example.ktapp.data.Person;
+import com.example.ktapp.data.Person2;
+
 /**
  * @ProjectName: KtApp
  * @Package: com.example.ktapp
@@ -15,7 +18,7 @@ public class testja {
         //抽象匿名内部类
         new Person() {
             @Override
-            void eat() {
+            public void eat() {
                 System.out.print("----//抽象匿名内部类-------\n");
             }
         }.eat();

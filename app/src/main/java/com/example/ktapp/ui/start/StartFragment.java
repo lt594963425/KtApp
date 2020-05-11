@@ -3,9 +3,7 @@ package com.example.ktapp.ui.start;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -16,54 +14,77 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.example.ktapp.R;
-import com.example.ktapp.User;
+import com.example.ktapp.base.BaseDataBindFragment;
+import com.example.ktapp.base.LazyLoadFragment;
+import com.example.ktapp.data.People;
+import com.example.ktapp.data.User;
 import com.example.ktapp.databinding.StartFragmentBinding;
 
 /**
  * Mvvm  ViewModel  +LiveData +dataBinding +Lifecycle
  */
-public class StartFragment extends Fragment {
+public class StartFragment extends LazyLoadFragment<StartFragmentBinding> {
 
-    private StartFragmentBinding startFragmentBinding;
+
+    private String start;
 
     public static StartFragment newInstance() {
         return new StartFragment();
     }
-
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 
-    @Nullable
+    public StartViewModel getViewModel() {
+        return getViewModel(StartViewModel.class);
+    }
+
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
-        //dataBinding+ViewModel+Lifecycle+LiveData
-        startFragmentBinding = DataBindingUtil.inflate(inflater, R.layout.start_fragment, container, false);
-        StartViewModel mViewModel = new ViewModelProvider(this, new ViewModelProvider.AndroidViewModelFactory(getActivity().getApplication())).get(StartViewModel.class);
-        getLifecycle().addObserver(mViewModel);
-        View view = startFragmentBinding.getRoot();
-        mViewModel.getUsers().observe(getViewLifecycleOwner(), new Observer<User>() {
+    protected int getLayoutId() {
+        return R.layout.start_fragment;
+    }
+
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        getLifecycle().addObserver(getViewModel());
+        if (getArguments() != null) {
+            start = getArguments().getString("START");
+            dataBind.changeMsg.setText(start + "");
+        }
+
+        getViewModel().getUsers().observe(getViewLifecycleOwner(), new Observer<People>() {
             @Override
-            public void onChanged(User user) {
-                startFragmentBinding.message.setText(user.getName());
+            public void onChanged(People user) {
+                dataBind.message.setText(user.getName());
             }
         });
-        startFragmentBinding.changeMsg.setOnClickListener(new View.OnClickListener() {
+        dataBind.changeMsg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //mViewModel.updateData("改变了");
-                mViewModel.getUsers().setValue(new User("hahahahha"));
+                getViewModel().getUsers().setValue(new People("hahahahha", "20"));
             }
         });
-        return view;
     }
 
+
+    @Override
+    protected void initData() {
+        super.initData();
+        getViewModel().loadUsers();
+    }
+
+    @Override
+    protected void initEvent() {
+        super.initEvent();
+
+    }
 
     @Override
     public void onResume() {

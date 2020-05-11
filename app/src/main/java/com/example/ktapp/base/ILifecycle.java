@@ -1,17 +1,14 @@
-package com.example.ktapp.ui.base;
-
-import android.util.Log;
+package com.example.ktapp.base;
 
 import androidx.annotation.Nullable;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleObserver;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.OnLifecycleEvent;
-import androidx.lifecycle.ViewModel;
 
 /**
  * @ProjectName: KtApp
- * @Package: com.example.ktapp.ui.base
+ * @Package: com.example.ktapp.base
  * @ClassName: ILifecycle
  * @Description: 感知生命周期
  * @Author: LiuTao

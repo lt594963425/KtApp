@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/roomdata">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/add_user"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginBottom="1dp"
+            android:background="@color/colorAccent"
+            android:gravity="center"
+            android:text="增加"
+            android:textColor="@color/colorWhite" />
+
+        <TextView
+            android:id="@+id/query_user"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginBottom="1dp"
+            android:background="@color/colorAccent"
+            android:gravity="center"
+            android:text="查询所有"
+            android:textColor="@color/colorWhite" />
+
+        <TextView
+            android:id="@+id/query_by_user"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginBottom="1dp"
+            android:background="@color/colorAccent"
+            android:gravity="center"
+            android:text="根据名字查询"
+            android:textColor="@color/colorWhite" />
+
+        <TextView
+            android:id="@+id/update_user"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginBottom="1dp"
+            android:background="@color/colorAccent"
+            android:gravity="center"
+            android:text="更新一条"
+            android:textColor="@color/colorWhite" />
+
+        <TextView
+            android:id="@+id/delete_user"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginBottom="1dp"
+            android:background="@color/colorAccent"
+            android:gravity="center"
+            android:text="删除所有"
+            android:textColor="@color/colorWhite" />
+
+
+        <TextView
+            android:id="@+id/show_data"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:textColor="#000000" />
+    </LinearLayout>
+
+</layout>

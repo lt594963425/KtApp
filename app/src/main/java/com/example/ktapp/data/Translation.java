@@ -1,4 +1,4 @@
-package com.example.ktapp.ui.data;
+package com.example.ktapp.data;
 
 /**
  * Created by ${LiuTao}.

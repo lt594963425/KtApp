@@ -1,4 +1,4 @@
-package com.example.ktapp;
+package com.example.ktapp.data;
 
 /**
  * @ProjectName: KtApp
@@ -8,6 +8,6 @@ package com.example.ktapp;
  * @Author: LiuTao
  * @CreateDate: 2020/4/24 15:16
  */
-abstract class Person {
-    abstract void eat();
+public interface  Person2 {
+     public void eat();
 }

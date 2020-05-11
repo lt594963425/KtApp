@@ -6,11 +6,11 @@
     <data>
 
 
-        <import type="com.example.ktapp.User" />
+        <import type="com.example.ktapp.data.People" />
 
         <variable
             name="user"
-            type="User" />
+            type="com.example.ktapp.data.People" />
 
         <variable
             name="listenerv1"
@@ -21,7 +21,18 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context=".MainActivity">
+        tools:context=".ui.MainActivity">
+        <TextView
+            android:id="@+id/room_tv"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:background="@color/colorAccent"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="Room数据库操作"
+            android:layout_marginBottom="1dp"
+            android:textColor="#ffffff" />
         <TextView
             android:id="@+id/login_tv"
             android:layout_width="match_parent"
@@ -34,14 +45,14 @@
             android:layout_marginBottom="1dp"
             android:textColor="#ffffff" />
         <TextView
-            android:id="@+id/welcome_tv"
+            android:id="@+id/start_tv"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_gravity="center"
             android:background="@color/colorAccent"
             android:gravity="center"
             android:padding="5dp"
-            android:text="欢迎页面"
+            android:text="开始页面"
             android:layout_marginBottom="1dp"
             android:textColor="#ffffff" />
 
