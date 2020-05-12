@@ -1,5 +1,6 @@
 package com.example.ktapp.data.db;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.room.Dao;

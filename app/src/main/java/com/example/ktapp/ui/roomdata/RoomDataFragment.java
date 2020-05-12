@@ -1,25 +1,35 @@
 package com.example.ktapp.ui.roomdata;
 
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.listener.OnItemChildClickListener;
+import com.chad.library.adapter.base.listener.OnItemClickListener;
+import com.chad.library.adapter.base.viewholder.BaseViewHolder;
 import com.example.ktapp.R;
 import com.example.ktapp.base.LazyLoadFragment;
 import com.example.ktapp.data.User;
 import com.example.ktapp.data.db.UserDatabase;
 import com.example.ktapp.databinding.RoomDataFragmentBinding;
+import com.example.ktapp.ui.roomdata.adapter.RoomDataAdapter;
+import com.example.ktapp.ui.roomdata.diff.DiffDemoCallback;
 
 import java.util.List;
 
@@ -29,7 +39,8 @@ import javax.inject.Inject;
 public class RoomDataFragment extends LazyLoadFragment<RoomDataFragmentBinding> {
 
     private RoomDataViewModel mViewModel;
-    private User user;
+
+    private RoomDataAdapter roomDataAdapter;
 
     public static RoomDataFragment newInstance() {
         return new RoomDataFragment();
@@ -48,28 +59,27 @@ public class RoomDataFragment extends LazyLoadFragment<RoomDataFragmentBinding> 
             @Override
             public void onChanged(User user) {
                 if (user != null) {
-                    dataBind.showData.setText(user.toString());
+                    roomDataAdapter.getData().clear();
+                    roomDataAdapter.addData(user);
+                    roomDataAdapter.notifyDataSetChanged();
                 }
             }
         });
         mViewModel.getUsers().observe(this, new Observer<List<User>>() {
             @Override
             public void onChanged(List<User> users) {
-                dataBind.showData.setText("");
-                if (users.size() > 0) {
-                    user = users.get(0);
-                }
-                for (int i = 0; i < users.size(); i++) {
-                    Log.e("用户查询", users.get(i).toString());
-                    dataBind.showData.append(users.get(i).toString() + "\n");
-                }
+
+                roomDataAdapter.setNewInstance(users);
+
             }
         });
         dataBind.addUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                UserDatabase.getInstance(getContext()).getUserDao().insert(new User("艾莉", "20", "女"));
-                get().queryAllUsers();
+                User user = new User("艾莉", "20", "女");
+                UserDatabase.getInstance(getContext()).getUserDao().insert(user);
+                roomDataAdapter.addData(user);
+
             }
         });
         dataBind.queryUser.setOnClickListener(new View.OnClickListener() {
@@ -82,20 +92,20 @@ public class RoomDataFragment extends LazyLoadFragment<RoomDataFragmentBinding> 
             @Override
             public void onClick(View v) {
                 UserDatabase.getInstance(getContext()).getUserDao().deleteAll();
-                dataBind.showData.setText("");
-                user = null;
+
                 get().queryAllUsers();
             }
         });
         dataBind.updateUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (user != null) {
+                if (roomDataAdapter.getData().size() > 0) {
+                    User user = roomDataAdapter.getData().get(0);
                     user.setName("张三");
                     user.setSex("男");
                     user.setAge("30");
                     UserDatabase.getInstance(getContext()).getUserDao().update(user);
-                    get().queryAllUsers();
+                    roomDataAdapter.notifyDataSetChanged();
                 }
             }
         });
@@ -105,6 +115,41 @@ public class RoomDataFragment extends LazyLoadFragment<RoomDataFragmentBinding> 
                 get().getUser().postValue(UserDatabase.getInstance(getContext()).getUserDao().getUser("张三"));
             }
         });
+
+        initRecycler();
+    }
+
+    private void initRecycler() {
+        roomDataAdapter = new RoomDataAdapter(null);
+        roomDataAdapter.setAnimationEnable(true);
+        View view = View.inflate(getContext(), R.layout.item_room_data_empty, null);
+        roomDataAdapter.setEmptyView(view);
+        roomDataAdapter.addChildClickViewIds(R.id.delete_tv);
+        dataBind.recycler.setLayoutManager(new LinearLayoutManager(getContext()));
+        DividerItemDecoration divider = new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL);
+        divider.setDrawable(ContextCompat.getDrawable(getContext(), R.drawable.custom_divider));
+        dataBind.recycler.addItemDecoration(divider);
+        dataBind.recycler.setAdapter(roomDataAdapter);
+        roomDataAdapter.setEmptyView(view);
+//        roomDataAdapter.setDiffCallback(new DiffDemoCallback());
+        roomDataAdapter.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(@NonNull BaseQuickAdapter adapter, @NonNull View view, int position) {
+
+            }
+        });
+        roomDataAdapter.setOnItemChildClickListener(new OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(@NonNull BaseQuickAdapter adapter, @NonNull View view, int position) {
+                if (view.getId() == R.id.delete_tv) {
+                    User user = (User) adapter.getData().get(position);
+                    UserDatabase.getInstance(getContext()).getUserDao().delete(user);
+                    adapter.getData().remove(position);
+                    adapter.notifyItemRemoved(position);
+                }
+            }
+        });
+
     }
 
     public RoomDataViewModel get() {
