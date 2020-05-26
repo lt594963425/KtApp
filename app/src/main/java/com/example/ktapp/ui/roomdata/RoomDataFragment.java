@@ -1,39 +1,31 @@
 package com.example.ktapp.ui.roomdata;
 
 import androidx.core.content.ContextCompat;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.listener.OnItemChildClickListener;
 import com.chad.library.adapter.base.listener.OnItemClickListener;
-import com.chad.library.adapter.base.viewholder.BaseViewHolder;
 import com.example.ktapp.R;
 import com.example.ktapp.base.LazyLoadFragment;
-import com.example.ktapp.data.User;
+import com.example.ktapp.data.db.User;
 import com.example.ktapp.data.db.UserDatabase;
 import com.example.ktapp.databinding.RoomDataFragmentBinding;
 import com.example.ktapp.ui.roomdata.adapter.RoomDataAdapter;
-import com.example.ktapp.ui.roomdata.diff.DiffDemoCallback;
 
 import java.util.List;
-
-import javax.inject.Inject;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 
 public class RoomDataFragment extends LazyLoadFragment<RoomDataFragmentBinding> {
@@ -154,5 +146,22 @@ public class RoomDataFragment extends LazyLoadFragment<RoomDataFragmentBinding> 
 
     public RoomDataViewModel get() {
         return getViewModel(RoomDataViewModel.class);
+    }
+
+    // 获得当前CPU的核心数
+    private static final int CPU_COUNT = Runtime.getRuntime().availableProcessors();
+
+    // 设置线程池的核心线程数2-4之间,但是取决于CPU核数
+    private static final int CORE_POOL_SIZE = Math.max(2, Math.min(CPU_COUNT - 1, 4));
+
+    public void createTheadPool() {
+
+        ExecutorService executorService = Executors.newFixedThreadPool(CORE_POOL_SIZE);
+        executorService.submit(new Runnable() {
+            @Override
+            public void run() {
+                Log.e("线程池", "---------------------------------------");
+            }
+        });
     }
 }

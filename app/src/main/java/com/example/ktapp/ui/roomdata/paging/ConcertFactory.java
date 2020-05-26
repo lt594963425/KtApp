@@ -3,9 +3,8 @@ package com.example.ktapp.ui.roomdata.paging;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 import androidx.paging.DataSource;
-import androidx.paging.PagedListAdapter;
 
-import com.example.ktapp.data.User;
+import com.example.ktapp.data.db.User;
 
 /**
  * @ProjectName: KtApp

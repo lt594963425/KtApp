@@ -3,7 +3,7 @@ package com.example.ktapp.ui.roomdata.adapter;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.viewholder.BaseViewHolder;
 import com.example.ktapp.R;
-import com.example.ktapp.data.User;
+import com.example.ktapp.data.db.User;
 
 import org.jetbrains.annotations.NotNull;
 

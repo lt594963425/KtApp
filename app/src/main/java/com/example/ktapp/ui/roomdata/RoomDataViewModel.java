@@ -1,27 +1,20 @@
 package com.example.ktapp.ui.roomdata;
 
 import android.app.Application;
-import android.content.Context;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.paging.DataSource;
 import androidx.paging.LivePagedListBuilder;
 import androidx.paging.PagedList;
 
-import com.example.ktapp.data.User;
-import com.example.ktapp.data.db.UserDao;
+import com.example.ktapp.data.db.User;
 import com.example.ktapp.data.db.UserDatabase;
-import com.example.ktapp.ui.roomdata.paging.ConcertDataSource;
 import com.example.ktapp.ui.roomdata.paging.ConcertFactory;
 
 import java.util.List;
-
-import javax.inject.Inject;
 
 public class RoomDataViewModel extends AndroidViewModel {
     // TODO: Implement the ViewModel

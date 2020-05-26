@@ -7,10 +7,8 @@ import androidx.annotation.Nullable;
 import androidx.lifecycle.Observer;
 
 import com.example.ktapp.R;
-import com.example.ktapp.base.BaseActivity;
 import com.example.ktapp.base.BaseDataBindActivity;
 import com.example.ktapp.data.People;
-import com.example.ktapp.data.User;
 import com.example.ktapp.databinding.ActivityMainDataBinding;
 
 /**

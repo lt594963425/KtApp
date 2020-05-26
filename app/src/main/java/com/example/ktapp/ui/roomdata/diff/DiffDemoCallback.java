@@ -3,7 +3,7 @@ package com.example.ktapp.ui.roomdata.diff;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DiffUtil;
 
-import com.example.ktapp.data.User;
+import com.example.ktapp.data.db.User;
 
 /**
  * @ProjectName: KtApp

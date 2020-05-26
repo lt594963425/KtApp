@@ -1,11 +1,13 @@
 package com.example.ktapp.ui.aac;
 
+import android.app.Application;
+
+import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.ktapp.base.BaseViewModel;
 import com.example.ktapp.data.People;
 import com.example.ktapp.data.Person;
-import com.example.ktapp.data.User;
 
 /**
  * @ProjectName: KtApp
@@ -18,6 +20,22 @@ import com.example.ktapp.data.User;
  */
 
 public class AViewModel extends BaseViewModel {
-    public MutableLiveData<People> getUserMutableLiveData() {return get(People.class);}
-    public MutableLiveData<Person> getPersonMutableLiveData(){return get(Person.class);}
+    /**
+     * 构造函数（在ViewModelProvider里通过class.newInstance创建实例）
+     *
+     * @param application
+     */
+    public AViewModel(@NonNull Application application) {
+        super(application);
+
+    }
+
+    public MutableLiveData<People> getUserMutableLiveData() {
+        return get(People.class);
+    }
+
+    public MutableLiveData<Person> getPersonMutableLiveData() {
+        return get(Person.class);
+    }
+
 }

@@ -1,4 +1,4 @@
-package com.example.ktapp.data;
+package com.example.ktapp.data.db;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;

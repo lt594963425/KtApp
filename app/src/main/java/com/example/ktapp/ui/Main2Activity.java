@@ -6,6 +6,8 @@ import android.os.Bundle;
 
 import com.example.ktapp.R;
 
+import java.util.UUID;
+
 public class Main2Activity extends AppCompatActivity {
 
     @Override

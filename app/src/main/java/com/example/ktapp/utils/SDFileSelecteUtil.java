@@ -1,18 +1,35 @@
 package com.example.ktapp.utils;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
+import android.telephony.TelephonyManager;
+import android.text.TextUtils;
 import android.util.Log;
 
 import androidx.annotation.Nullable;
+
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.lang.reflect.Method;
+import java.util.Random;
+
+import static android.text.TextUtils.isEmpty;
 
 public class SDFileSelecteUtil {
     public static String getFilePath(Context context, @Nullable Intent data) {
@@ -27,7 +44,7 @@ public class SDFileSelecteUtil {
             String path = getPath(context, uri);
             return path;
         } else {//4.4以下下系统调用方法
-            String path = getRealPathFromURI(context,uri);
+            String path = getRealPathFromURI(context, uri);
 
             return path;
         }
@@ -66,7 +83,7 @@ public class SDFileSelecteUtil {
             // MediaProvider
             else if (isMediaDocument(uri)) {
                 final String docId = DocumentsContract.getDocumentId(uri);
-                Log.e("ddd 2",docId+"");
+                Log.e("ddd 2", docId + "");
                 final String[] split = docId.split(":");
                 final String type = split[0];
 
@@ -121,7 +138,7 @@ public class SDFileSelecteUtil {
      * 148
      */
     private static String getDataColumn(Context context, Uri uri, String selection,
-                                       String[] selectionArgs) {
+                                        String[] selectionArgs) {
 
         Cursor cursor = null;
         final String column = "_data";
@@ -164,5 +181,113 @@ public class SDFileSelecteUtil {
      */
     private static boolean isMediaDocument(Uri uri) {
         return "com.android.providers.media.documents".equals(uri.getAuthority());
+    }
+
+
+    /*
+     * deviceID的组成为：渠道标志+识别符来源标志+hash后的终端识别符
+     *
+     * 渠道标志为：
+     * 1，andriod（a）
+     *
+     * 识别符来源标志：
+     * 1， wifi mac地址（wifi）；
+     * 2， IMEI（imei）；
+     * 3， 序列号（sn）；
+     * 4， id：随机码。若前面的都取不到时，则随机生成一个随机码，需要缓存。
+     *
+     * @param context
+     * @return
+     */
+
+    public static String getDeviceInfo(Context context) {
+        String device_id = null;
+        try {
+
+            android.telephony.TelephonyManager tm = (android.telephony.TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+
+            if (checkPermission(context, Manifest.permission.READ_PHONE_STATE)) {
+                device_id = tm.getDeviceId();
+            }
+            String mac = null;
+            FileReader fstream = null;
+            try {
+                fstream = new FileReader("/sys/class/net/wlan0/address");
+            } catch (FileNotFoundException e) {
+                fstream = new FileReader("/sys/class/net/eth0/address");
+            }
+            BufferedReader in = null;
+            if (fstream != null) {
+                try {
+                    in = new BufferedReader(fstream, 1024);
+                    mac = in.readLine();
+                } catch (IOException e) {
+                } finally {
+                    if (fstream != null) {
+                        try {
+                            fstream.close();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    if (in != null) {
+                        try {
+                            in.close();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }
+
+            if (TextUtils.isEmpty(device_id)) {
+                device_id = mac;
+            }
+            if (TextUtils.isEmpty(device_id)) {
+                device_id = android.provider.Settings.Secure.getString(context.getContentResolver(),
+                        android.provider.Settings.Secure.ANDROID_ID);
+            } else {
+                device_id = getRandomString(15);
+            }
+
+            return device_id;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return device_id;
+    }
+
+    public static boolean checkPermission(Context context, String permission) {
+        boolean result = false;
+        if (Build.VERSION.SDK_INT >= 23) {
+            try {
+                Class<?> clazz = Class.forName("android.content.Context");
+                Method method = clazz.getMethod("checkSelfPermission", String.class);
+                int rest = (Integer) method.invoke(context, permission);
+                if (rest == PackageManager.PERMISSION_GRANTED) {
+                    result = true;
+                } else {
+                    result = false;
+                }
+            } catch (Exception e) {
+                result = false;
+            }
+        } else {
+            PackageManager pm = context.getPackageManager();
+            if (pm.checkPermission(permission, context.getPackageName()) == PackageManager.PERMISSION_GRANTED) {
+                result = true;
+            }
+        }
+        return result;
+    }
+    public static String getRandomString(int length) { //length表示生成字符串的长度
+        String base = "abcdefghijklmnopqrstuvwxyz0123456789";
+        Random random = new Random();
+        StringBuffer sb = new StringBuffer();
+        for (int i = 0; i < length; i++) {
+            int number = random.nextInt(base.length());
+            sb.append(base.charAt(number));
+        }
+        return sb.toString();
     }
 }

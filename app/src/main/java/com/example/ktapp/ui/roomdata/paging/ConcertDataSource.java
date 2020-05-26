@@ -3,7 +3,7 @@ package com.example.ktapp.ui.roomdata.paging;
 import androidx.annotation.NonNull;
 import androidx.paging.PositionalDataSource;
 
-import com.example.ktapp.data.User;
+import com.example.ktapp.data.db.User;
 
 import java.util.ArrayList;
 import java.util.List;

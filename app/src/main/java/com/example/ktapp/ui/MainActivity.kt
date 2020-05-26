@@ -14,6 +14,8 @@ import com.example.ktapp.utils.SDFileSelecteUtil
 import com.example.ktapp.ui.login.LoginActivity
 import com.example.ktapp.ui.start.StartActivity
 import com.example.ktapp.ui.roomdata.RoomDataActivity
+import com.example.ktapp.ui.welcome.WelcomeActivity
+import com.example.ktapp.utils.Installation
 import kotlinx.android.synthetic.main.activity_main_data.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -41,9 +43,9 @@ class MainActivity : AppCompatActivity() {
             selectedKmlFile()
         }
         start_tv.setOnClickListener { startActivity(Intent(this, StartActivity::class.java)) }
-
         login_tv.setOnClickListener { startActivity(Intent(this, LoginActivity::class.java)) }
         room_tv.setOnClickListener { startActivity(Intent(this, RoomDataActivity::class.java)) }
+        welcome_tv.setOnClickListener { startActivity(Intent(this, WelcomeActivity::class.java)) }
 
         GlobalScope.launch(Dispatchers.Unconfined) {
             Log.d("AA", "协程初始化完成，时间: " + System.currentTimeMillis())
@@ -57,6 +59,7 @@ class MainActivity : AppCompatActivity() {
         }
         Log.d("AA", "hahahahahaahahahahahahh  " + System.currentTimeMillis())
 
+        Log.e("设备ID",  Installation.id(this) +"");
 
     }
 
@@ -89,9 +92,6 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
             }
-
         }
     }
-
-
 }

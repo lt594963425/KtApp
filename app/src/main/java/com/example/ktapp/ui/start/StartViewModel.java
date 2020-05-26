@@ -9,7 +9,6 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.ktapp.data.People;
-import com.example.ktapp.data.User;
 import com.example.ktapp.base.ILifecycle;
 
 public class StartViewModel extends ViewModel implements ILifecycle {
@@ -21,7 +20,7 @@ public class StartViewModel extends ViewModel implements ILifecycle {
     public StartViewModel() {
         users = new MutableLiveData<People>();
         startRepertory = new StartRepertory();
-        Log.e(TAG,"初始化");
+        Log.e(TAG, "初始化");
     }
 
     public MutableLiveData<People> getUsers() {
@@ -42,7 +41,7 @@ public class StartViewModel extends ViewModel implements ILifecycle {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                users.postValue(new People("哈哈哈哈哈哈哈哈哈","20"));
+                users.postValue(new People("哈哈哈哈哈哈哈哈哈", "20"));
 //                  users.setValue(new User("哈哈哈哈哈哈哈哈哈"));
             }
         }).start();
@@ -53,7 +52,6 @@ public class StartViewModel extends ViewModel implements ILifecycle {
     public void onCreate(@Nullable LifecycleOwner owner) {
         Log.e(TAG, "onCreate()");
         Log.e(TAG, "当前生命周期状态=" + owner.getLifecycle().getCurrentState().name());
-
     }
 
     @Override
