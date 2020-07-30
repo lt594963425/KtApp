@@ -56,6 +56,7 @@ public class DrawGraphView extends LinearLayout {
         initView();
         initAttr(ta);
     }
+
     public void init(MapView mMapView){
         this.mMapView=mMapView;
         arcgisMeasure=new ArcGisMeasure(context,mMapView);
@@ -136,6 +137,7 @@ public class DrawGraphView extends LinearLayout {
         setdrawingEllipseImage(drawingEllipseImage);
         setdrawingRhombusImage(drawingRhombusImage);
     }
+
     private void initDrawGraph(){
         if(arcGisDrawGraph==null){
             arcGisDrawGraph=new ArcGisDrawGraph(context,mMapView);
@@ -147,6 +149,7 @@ public class DrawGraphView extends LinearLayout {
             });
         }
     }
+
     private OnClickListener listener=new OnClickListener() {
         @Override
         public void onClick(View view) {
