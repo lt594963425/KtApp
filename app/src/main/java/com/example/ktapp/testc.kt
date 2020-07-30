@@ -33,13 +33,12 @@ import java.lang.Integer.parseInt
 //请注意，在大多数情况下，优先使用字符串模板或原始字符串而不是字符串连接
 //suspend方法只能在协程里面调用, 不能在协程外面调用.
 //suspend方法本质上, 与普通方法有较大的区别, suspend方法的本质是异步返回(注意: 不是异步回调). 后面我们会解释这句话的含义.
-suspend fun main() {
 
-   val  job = GlobalScope.launch { // 在后台启动一个新的协程并继续
-        delay(1000L) // 非阻塞的等待 1 秒钟（默认时间单位是毫秒）
-        println("World!") // 在延迟后打印输出
-    }
-    println("Hello,") // 协程已在等待时主线程还在继续
+
+fun main() {
+
+
+//    println(sayHello("刘涛")) // 协程已在等待时主线程还在继续?
 
 //    job.join()
 
@@ -70,7 +69,20 @@ suspend fun main() {
 //    println(describe(1000L))
 //    println(describe(2))
 //    println(describe("other"))
+      addAll(100000)
+}
 
+fun addAll(num: Int): Int {
+    println("运行次数${num}")
+    if (num == 1) {
+        return 1
+    } else {
+        return num + addAll(num - 1);
+    }
+}
+
+fun sayHello(name: String): String {
+    return "${name}:你好啊"
 }
 
 fun fooo(): Int {     // 不良

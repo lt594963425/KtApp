@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.esri.arcgisruntime.mapping.view.MapView
+            android:id="@+id/mapView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <cn.sddman.arcgistool.view.ArcGisZoomView
+            android:id="@+id/arcgis_zoom_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="80dp">
+            <!--app:show_text="true"-->
+            <!--app:zoom_font_color="@color/colorAccent"-->
+            <!--app:zoom_font_size="12"-->
+            <!--app:zoom_out_image="@drawable/zoomout"-->
+            <!--app:zoom_in_image="@drawable/zoomin"-->
+            <!--app:zoom_rotate_image="@drawable/rotate"-->
+            <!--app:show_rotate="false"-->
+            <!--app:isHorizontal="false"-->
+            <!--app:zoom_in_num="4"-->
+            <!--app:zoom_out_num="4"-->
+            <!--app:zoom_rotate_num="-45"-->
+            <!--app:zoom_bg="@drawable/round_corner"-->
+            <!--app:button_width="35dp"-->
+            <!--app:button_height="35dp"-->
+            <!--&gt;-->
+        </cn.sddman.arcgistool.view.ArcGisZoomView>
+
+        <cn.sddman.arcgistool.view.MeasureToolView
+            android:id="@+id/measure_tool"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_margin="10dp"></cn.sddman.arcgistool.view.MeasureToolView>
+
+        <cn.sddman.arcgistool.view.MapRotateView
+            android:id="@+id/map_rotate_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="250dp"></cn.sddman.arcgistool.view.MapRotateView>
+
+        <cn.sddman.arcgistool.view.DrawGraphView
+            android:id="@+id/arcgis_draw_tool"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="80dp"
+            android:layout_marginRight="10dp"></cn.sddman.arcgistool.view.DrawGraphView>
+    </RelativeLayout>
+</layout>

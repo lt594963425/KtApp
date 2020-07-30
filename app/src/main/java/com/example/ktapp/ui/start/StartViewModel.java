@@ -41,7 +41,7 @@ public class StartViewModel extends ViewModel implements ILifecycle {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                users.postValue(new People("哈哈哈哈哈哈哈哈哈", "20"));
+//                users.postValue(new People("哈哈哈哈哈哈哈哈哈", "20"));
 //                  users.setValue(new User("哈哈哈哈哈哈哈哈哈"));
             }
         }).start();

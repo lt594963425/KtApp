@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
 
         <import type="com.example.ktapp.data.People" />
 
@@ -17,59 +15,81 @@
             type="android.view.View.OnClickListener" />
     </data>
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:context=".ui.MainActivity">
-        <TextView
-            android:id="@+id/room_tv"
+        android:layout_height="match_parent">
+
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_gravity="center"
-            android:background="@color/colorAccent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            tools:context=".ui.MainActivity">
+
+            <TextView
+                android:id="@+id/room_tv"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="1dp"
+                android:background="@color/colorAccent"
             android:gravity="center"
             android:padding="5dp"
             android:text="Room数据库操作"
-            android:layout_marginBottom="1dp"
             android:textColor="#ffffff" />
+
         <TextView
             android:id="@+id/login_tv"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_gravity="center"
+            android:layout_marginBottom="1dp"
             android:background="@color/colorAccent"
             android:gravity="center"
             android:padding="5dp"
             android:text="登录页面"
-            android:layout_marginBottom="1dp"
             android:textColor="#ffffff" />
+
         <TextView
             android:id="@+id/start_tv"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_gravity="center"
+            android:layout_marginBottom="1dp"
             android:background="@color/colorAccent"
             android:gravity="center"
             android:padding="5dp"
             android:text="开始页面"
-            android:layout_marginBottom="1dp"
             android:textColor="#ffffff" />
-        <TextView
-            android:id="@+id/welcome_tv"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_gravity="center"
-            android:background="@color/colorAccent"
-            android:gravity="center"
-            android:padding="5dp"
-            android:text="欢迎页面"
-            android:layout_marginBottom="1dp"
-            android:textColor="#ffffff" />
-        <TextView
-            android:id="@+id/text_1"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
+
+            <TextView
+                android:id="@+id/welcome_tv"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="1dp"
+                android:background="@color/colorAccent"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="欢迎页面"
+                android:textColor="#ffffff" />
+
+            <TextView
+                android:id="@+id/gismap_tv"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="1dp"
+                android:background="@color/colorAccent"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="GIS地图"
+                android:textColor="#ffffff" />
+
+            <TextView
+                android:id="@+id/text_1"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
             android:layout_gravity="center"
             android:background="@color/colorAccent"
             android:gravity="center"
@@ -88,11 +108,17 @@
             android:text=""
             android:textColor="#000000" />
 
-        <ImageView
-            android:id="@+id/image"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_gravity="center_horizontal" />
-    </LinearLayout>
+            <ImageView
+                android:id="@+id/image"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center_horizontal" />
+        </LinearLayout>
 
+        <com.example.ktapp.ui.AdsorptionView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+
+    </FrameLayout>
 </layout>

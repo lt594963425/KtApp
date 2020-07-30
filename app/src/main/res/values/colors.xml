@@ -4,4 +4,13 @@
     <color name="colorPrimaryDark">#F3095E</color>
     <color name="colorAccent">#D81B60</color>
     <color name="colorWhite">#FFFFFF</color>
+
+    <color name="color_838B8B">#FF3DDEDE</color>
+    <color name="color_607B8B">#FF17EC2A</color>
+    <color name="color_8FBC8F">#FFE9B31F</color>
+    <color name="color_8DB6CD">#FFE41D93</color>
+    <color name="color_FFD0E8F4">#FFD0E8F4</color>
+
+
+
 </resources>

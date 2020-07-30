@@ -8,6 +8,7 @@ import android.util.Log
 import androidx.databinding.DataBindingUtil
 import com.example.ktapp.databinding.ActivityMainDataBinding
 import android.net.Uri
+import com.esri.arcgisruntime.ArcGISRuntimeEnvironment
 import com.example.ktapp.R
 import com.example.ktapp.data.People
 import com.example.ktapp.utils.SDFileSelecteUtil
@@ -27,7 +28,7 @@ import kotlinx.coroutines.launch
  *
  */
 class MainActivity : AppCompatActivity() {
-
+    val runtimeKey = "runtimelite,1000,rud5244175697,none,D7MFA0PL4S8PC2EN0171"
     var databinding: ActivityMainDataBinding? = null;
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,17 +36,17 @@ class MainActivity : AppCompatActivity() {
             this,
             R.layout.activity_main_data
         )
+        ArcGISRuntimeEnvironment.setLicense(runtimeKey);
         val user = People()
         user.setName("Hello")
         user.setAge("12")
         databinding?.user = user;
-        databinding?.setListenerv1 {
-            selectedKmlFile()
-        }
+        databinding?.setListenerv1 { selectedKmlFile() }
         start_tv.setOnClickListener { startActivity(Intent(this, StartActivity::class.java)) }
         login_tv.setOnClickListener { startActivity(Intent(this, LoginActivity::class.java)) }
         room_tv.setOnClickListener { startActivity(Intent(this, RoomDataActivity::class.java)) }
         welcome_tv.setOnClickListener { startActivity(Intent(this, WelcomeActivity::class.java)) }
+        gismap_tv.setOnClickListener { startActivity(Intent(this, GisMapActivity::class.java)) }
 
         GlobalScope.launch(Dispatchers.Unconfined) {
             Log.d("AA", "协程初始化完成，时间: " + System.currentTimeMillis())

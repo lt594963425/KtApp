@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
+<animated-vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:drawable="@drawable/vertor_bicycle">
+
+    <target
+        android:animation="@animator/animator_wheel"
+        android:name="leftWheel"/>
+
+    <target
+        android:animation="@animator/animator_wheel"
+        android:name="rightWheel"/>
+
+    <target
+        android:animation="@animator/animator_wheel"
+        android:name="pedal"/>
+</animated-vector>

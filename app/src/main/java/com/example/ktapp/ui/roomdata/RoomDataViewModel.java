@@ -2,19 +2,15 @@ package com.example.ktapp.ui.roomdata;
 
 import android.app.Application;
 
-import androidx.annotation.NonNull;
-import androidx.lifecycle.AndroidViewModel;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
-import androidx.paging.DataSource;
-import androidx.paging.LivePagedListBuilder;
-import androidx.paging.PagedList;
+        import androidx.annotation.NonNull;
+        import androidx.lifecycle.AndroidViewModel;
+        import androidx.lifecycle.LiveData;
+        import androidx.lifecycle.MutableLiveData;
 
-import com.example.ktapp.data.db.User;
-import com.example.ktapp.data.db.UserDatabase;
-import com.example.ktapp.ui.roomdata.paging.ConcertFactory;
+        import com.example.ktapp.data.db.User;
+        import com.example.ktapp.data.db.UserDatabase;
 
-import java.util.List;
+        import java.util.List;
 
 public class RoomDataViewModel extends AndroidViewModel {
     // TODO: Implement the ViewModel
@@ -22,8 +18,6 @@ public class RoomDataViewModel extends AndroidViewModel {
     private MutableLiveData<List<User>> users;
     private UserDatabase userDatabase;
     //paging
-    private LiveData<PagedList<User>> convertList;
-    private DataSource<Integer, User> concertDataSource;
 
     public RoomDataViewModel(@NonNull Application application) {
         super(application);
@@ -31,9 +25,6 @@ public class RoomDataViewModel extends AndroidViewModel {
         user = new MutableLiveData<User>();
         userDatabase = UserDatabase.getInstance(application.getApplicationContext());
 
-        ConcertFactory concertFactory = new ConcertFactory();
-        concertDataSource = concertFactory.create();
-        convertList = new LivePagedListBuilder<>(concertFactory, 20).build();
     }
 
     public MutableLiveData<User> getUser() {
@@ -51,11 +42,5 @@ public class RoomDataViewModel extends AndroidViewModel {
 
 
     /************************************************* * Paging * *************************************************/
-    public void invalidateDataSource() {
-        concertDataSource.invalidate();
-    }
 
-    public LiveData<PagedList<User>> getConvertList() {
-        return convertList;
-    }
 }

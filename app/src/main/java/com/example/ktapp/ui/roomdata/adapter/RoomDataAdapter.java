@@ -1,5 +1,7 @@
 package com.example.ktapp.ui.roomdata.adapter;
 
+import android.widget.TextView;
+
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.viewholder.BaseViewHolder;
 import com.example.ktapp.R;
@@ -22,9 +24,14 @@ public class RoomDataAdapter extends BaseQuickAdapter<User, BaseViewHolder> {
     public RoomDataAdapter(List<User> list) {
         super(R.layout.item_room_data, list);
     }
+
     @Override
     protected void convert(@NotNull BaseViewHolder baseViewHolder, User user) {
+        TextView textView = baseViewHolder.getView(R.id.text_tv);
+        textView.setSelected(true);
         baseViewHolder.setText(R.id.text_tv, user.toString());
+
     }
+
 
 }

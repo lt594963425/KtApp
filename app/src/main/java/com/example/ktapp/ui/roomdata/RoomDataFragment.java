@@ -32,7 +32,7 @@ public class RoomDataFragment extends LazyLoadFragment<RoomDataFragmentBinding> 
 
     private RoomDataViewModel mViewModel;
 
-    private RoomDataAdapter roomDataAdapter;
+    public RoomDataAdapter roomDataAdapter;
 
     public static RoomDataFragment newInstance() {
         return new RoomDataFragment();
@@ -65,6 +65,7 @@ public class RoomDataFragment extends LazyLoadFragment<RoomDataFragmentBinding> 
 
             }
         });
+
         dataBind.addUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -141,6 +142,8 @@ public class RoomDataFragment extends LazyLoadFragment<RoomDataFragmentBinding> 
                 }
             }
         });
+
+
 
     }
 
