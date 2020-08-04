@@ -47,7 +47,7 @@ public class RoomDataFragment extends LazyLoadFragment<RoomDataFragmentBinding> 
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mViewModel = get();
-        mViewModel.getUser().observe(this, new Observer<User>() {
+        mViewModel.getUser().observe(getViewLifecycleOwner(), new Observer<User>() {
             @Override
             public void onChanged(User user) {
                 if (user != null) {
@@ -57,7 +57,7 @@ public class RoomDataFragment extends LazyLoadFragment<RoomDataFragmentBinding> 
                 }
             }
         });
-        mViewModel.getUsers().observe(this, new Observer<List<User>>() {
+        mViewModel.getUsers().observe(getViewLifecycleOwner(), new Observer<List<User>>() {
             @Override
             public void onChanged(List<User> users) {
 

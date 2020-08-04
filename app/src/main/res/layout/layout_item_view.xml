@@ -5,8 +5,8 @@
 
     <View
         android:id="@+id/iv_image"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:background="@color/colorAccent"/>
 
 </RelativeLayout>

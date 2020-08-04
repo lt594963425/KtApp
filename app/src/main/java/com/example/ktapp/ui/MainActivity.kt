@@ -36,12 +36,11 @@ class MainActivity : AppCompatActivity() {
             this,
             R.layout.activity_main_data
         )
-        ArcGISRuntimeEnvironment.setLicense(runtimeKey);
+        ArcGISRuntimeEnvironment.setLicense(runtimeKey)
         val user = People()
         user.setName("Hello")
         user.setAge("12")
-        databinding?.user = user;
-        databinding?.setListenerv1 { selectedKmlFile() }
+        databinding?.user = user
         start_tv.setOnClickListener { startActivity(Intent(this, StartActivity::class.java)) }
         login_tv.setOnClickListener { startActivity(Intent(this, LoginActivity::class.java)) }
         room_tv.setOnClickListener { startActivity(Intent(this, RoomDataActivity::class.java)) }
@@ -72,27 +71,5 @@ class MainActivity : AppCompatActivity() {
         startActivityForResult(intent, 1101)
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        when (requestCode) {
-            1101 -> if (resultCode == RESULT_OK) {
-                if (data == null) {
-                    // 用户未选择任何文件，直接返回
-                    return
-                }
-                val uri = data.data
-                Log.e("ddd", uri.toString() + "");
-                Log.e("ddd", uri?.scheme + "");
-                Log.e("ddd", uri?.path + "");
-                val path = SDFileSelecteUtil.getFilePath(this, data)
-                Log.e("ddd", path + "");
-                if (!TextUtils.isEmpty(path) && path != null) {
-                    if (databinding != null) {
-                        databinding?.text2?.setText(path + "")
-                        databinding?.image?.setImageURI(Uri.parse(path))
-                    }
-                }
-            }
-        }
-    }
+
 }

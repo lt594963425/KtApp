@@ -20,6 +20,8 @@ import android.util.Log;
 
 import androidx.annotation.Nullable;
 
+import com.example.ktapp.base.App;
+
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -32,6 +34,17 @@ import java.util.Random;
 import static android.text.TextUtils.isEmpty;
 
 public class SDFileSelecteUtil {
+
+    /**
+     * 获取dimens定义的大小
+     *
+     * @param dimensionId
+     * @return
+     */
+    public static int getPixelById(int dimensionId) {
+        return App.getApplication().getResources().getDimensionPixelSize(dimensionId);
+    }
+
     public static String getFilePath(Context context, @Nullable Intent data) {
         Uri uri = data.getData();
 

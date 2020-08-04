@@ -2,4 +2,16 @@
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <dimen name="article_post_et_h">100dp</dimen>
+    <dimen name="article_post_delete">50dp</dimen>
+    <dimen name="paddingLR">15dp</dimen>
+
+    <dimen name="recycle_margin_top">100dp</dimen>
+    <dimen name="bottom_margin_top">40dp</dimen>
+    <dimen name="edittext_height">100dp</dimen>
+    <dimen name="bottom_textview_height">50dp</dimen>
+    <dimen name="dimen_1">1dp</dimen>
+    <dimen name="dimen_20">20dp</dimen>
+    <dimen name="dimen_50">50dp</dimen>
 </resources>
