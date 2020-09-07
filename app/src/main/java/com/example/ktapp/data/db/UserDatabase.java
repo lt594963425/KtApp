@@ -18,7 +18,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
  * @CreateDate: 2020/5/9 17:45
  * @UpdateUser: LiuTao
  */
-@Database(entities = {User.class}, version = 3, exportSchema = true)
+@Database(entities = {User.class}, version = 3, exportSchema = false)
 public abstract class UserDatabase extends RoomDatabase {
     private static final String DB_NAME = "UserDatabase.db";
     private static volatile UserDatabase instance;

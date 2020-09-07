@@ -3,6 +3,7 @@ package com.example.ktapp.utils;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.AssetManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -569,14 +570,10 @@ public class FileUtils {
      * @return 是否写入成功
      */
     public static boolean writeFile(String content, String path, boolean append) {
-        byte[] bytes = new byte[0];
-        try {
-            bytes = content.getBytes("UTF-8");
+          byte[] bytes = new byte[1024];
+            bytes = content.getBytes();
             return writeFile(bytes, path, append);
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
-        return false;
+
     }
 
     /**
@@ -1302,8 +1299,8 @@ public class FileUtils {
         return result;
     }
 
-    public static void readAssetsFileToSd(String path,String name) {
-        File file = new File(path);
+    public static void readAssetsFileToSd(File file,String name) {
+
         //Environment.getExternalStorageDirectory().getPath() + "/DJI/"
         InputStream is = null;
         try {
@@ -1322,6 +1319,49 @@ public class FileUtils {
         }
     }
 
+    public static void copyAssets(File file,String fileNamess) {
+
+        AssetManager assetManager =App.getApplication().getAssets();
+        String[] files = null;
+        try {
+            files = assetManager.list("");
+        } catch (IOException e) {
+            Log.e("tag", "Failed to get asset file list.", e);
+        }
+        InputStream in = null;
+        OutputStream out = null;
+        try {
+            in = assetManager.open(fileNamess);
+            File outFile = new File(file.getAbsolutePath(), fileNamess);
+            out = new FileOutputStream(outFile);
+            copyFile(in, out);
+        } catch (IOException e) {
+            Log.e("tag", "Failed to copy asset file: " + fileNamess, e);
+        } finally {
+            if (in != null) {
+                try {
+                    in.close();
+                } catch (IOException e) {
+                    // NOOP
+                }
+            }
+            if (out != null) {
+                try {
+                    out.close();
+                } catch (IOException e) {
+                    // NOOP
+                }
+            }
+        }
+    }
+
+    private static void copyFile(InputStream in, OutputStream out) throws IOException {
+        byte[] buffer = new byte[1024];
+        int read;
+        while ((read = in.read(buffer)) != -1) {
+            out.write(buffer, 0, read);
+        }
+    }
     /**
      * 删除DJI文件
      */

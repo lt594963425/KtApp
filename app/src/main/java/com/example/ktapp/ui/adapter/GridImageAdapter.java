@@ -150,8 +150,6 @@ public class GridImageAdapter extends RecyclerView.Adapter<GridImageAdapter.View
                 }
             });
             String path = list.get(position);
-
-
             RequestOptions options = new RequestOptions()
                     .centerCrop()
                     .placeholder(R.color.color_f6)

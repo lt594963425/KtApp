@@ -3,8 +3,10 @@ package com.example.ktapp.ui;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.pm.PackageManager;
+import android.content.res.AssetManager;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
@@ -29,6 +31,8 @@ import com.esri.arcgisruntime.layers.ArcGISTiledLayer;
 import com.esri.arcgisruntime.layers.FeatureLayer;
 import com.esri.arcgisruntime.layers.WebTiledLayer;
 import com.esri.arcgisruntime.loadable.LoadStatus;
+import com.esri.arcgisruntime.loadable.LoadStatusChangedEvent;
+import com.esri.arcgisruntime.loadable.LoadStatusChangedListener;
 import com.esri.arcgisruntime.location.LocationDataSource;
 import com.esri.arcgisruntime.mapping.ArcGISMap;
 import com.esri.arcgisruntime.mapping.Basemap;
@@ -44,10 +48,17 @@ import com.esri.arcgisruntime.symbology.SimpleFillSymbol;
 import com.esri.arcgisruntime.symbology.SimpleLineSymbol;
 import com.esri.arcgisruntime.symbology.SimpleMarkerSymbol;
 import com.example.ktapp.R;
+import com.example.ktapp.base.App;
 import com.example.ktapp.base.BaseDataBindActivity;
 import com.example.ktapp.databinding.ActivityGisMapBinding;
+import com.example.ktapp.utils.FileUtils;
+import com.example.ktapp.utils.SDFileSelecteUtil;
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.Arrays;
 
 import cn.sddman.arcgistool.common.Variable;
@@ -421,6 +432,13 @@ public class GisMapActivity extends BaseDataBindActivity<ActivityGisMapBinding> 
     public void loadMapData() {
         setupMap();
 //        setupOfflineMap();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+//                copyAssets();
+                setupOfflineMap();
+            }
+        }).start();
     }
 
     /**
@@ -428,30 +446,56 @@ public class GisMapActivity extends BaseDataBindActivity<ActivityGisMapBinding> 
      * 5a29218d-cb01-4050-afdc-01ba4c8903f4
      */
     private void setupOfflineMap() {
-        //
+        String fileNamess = "offline-maps-package.mmpk";
+        File file = new File(Environment.getExternalStorageDirectory().getPath() + "/ArcGISMap/");
+        File file2 = new File(file.getAbsolutePath() + "/" + fileNamess);
+        if (!file2.exists()){
+            FileUtils.copyAssets(file, fileNamess);
+        }
 //        File path = getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS);
-        File path = new File("/storage/emulated/0/Pictures");
-        File mmpkFile = new File(path, "offline-maps-package.mmpk");
-        Log.w("路径", mmpkFile.getAbsolutePath());
-        MobileMapPackage mapPackage = new MobileMapPackage(mmpkFile.getAbsolutePath());
-        mapPackage.addDoneLoadingListener(() -> {
-            if (mapPackage.getLoadStatus() == LoadStatus.LOADED && !mapPackage.getMaps().isEmpty()) {
-                for (int i = 0; i < mapPackage.getMaps().size(); i++) {
-                    if (mapPackage.getMaps().get(i) != null) {
-                        Log.w("MobileMapPackage", i + "====" + mapPackage.getMaps().get(i).toString() + "");
+//        File path = new File("/storage/emulated/0/Pictures");
+//        File mmpkFile = new File(path, "offline-maps-package.mmpk");
+        Log.w("MobileMapPackage 1", file2.getAbsolutePath() + "");
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                MobileMapPackage mapPackage = new MobileMapPackage(file2.getAbsolutePath());
+                mapPackage.addLoadStatusChangedListener(new LoadStatusChangedListener() {
+                    @Override
+                    public void loadStatusChanged(LoadStatusChangedEvent loadStatusChangedEvent) {
+                        if (loadStatusChangedEvent.getNewLoadStatus() == LoadStatus.LOADED && !mapPackage.getMaps().isEmpty()) {
+                            for (int i = 0; i < mapPackage.getMaps().size(); i++) {
+                                if (mapPackage.getMaps().get(i) != null) {
+                                    Log.w("MobileMapPackage 2", i + "====" + mapPackage.getMaps().get(i).toString() + "");
+                                }
+                            }
+                            dataBind.mapView.setMap(mapPackage.getMaps().get(0));
+                            Log.w("MobileMapPackage 3", file2.getAbsolutePath());
 
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    createGraphics();
+                                    setupLocationDisplay();
+                                }
+                            });
+                        } else {
+                            Log.e("MobileMapPackage", "Cannot load " + file2.toString());
+
+                            runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    setupMap();
+                                }
+                            });
+                        }
                     }
-                }
-                dataBind.mapView.setMap(mapPackage.getMaps().get(0));
-                Log.w("路径2", path.getAbsolutePath());
-                createGraphics();
-                setupLocationDisplay();
-            } else {
-                Log.e("setupOfflineMap", "Cannot load " + path.toString() + "/offline-maps-package.mmpk");
-                setupMap();
+                });
+
+
+                mapPackage.loadAsync();
             }
         });
-        mapPackage.loadAsync();
     }
 
 

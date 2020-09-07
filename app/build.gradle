@@ -91,8 +91,12 @@ dependencies {
     api 'androidx.lifecycle:lifecycle-livedata:2.2.0'
     //room
     implementation "androidx.room:room-runtime:2.2.5"
-    implementation project(path: ':arcgistool')
     annotationProcessor "androidx.room:room-compiler:2.2.5"
+    api 'com.tbruyelle.rxpermissions2:rxpermissions:0.9.4@aar'
+    //天地图
+    implementation project(path: ':arcgistool')
+    //osmdroid栅格地图
+    implementation 'org.osmdroid:osmdroid-android:6.1.8'
     // navigation
     implementation "androidx.navigation:navigation-fragment:2.3.0"
     implementation "androidx.navigation:navigation-ui:2.3.0"
@@ -125,5 +129,9 @@ dependencies {
 //    implementation "androidx.camera:camera-lifecycle:1.0.0-beta06"
 //// CameraX view 集合，比如 cameraview，preview等
 //    implementation "androidx.camera:camera-view:1.0.0-alpha13"
-
+    api 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+    //doto 视频播放
+    api 'com.shuyu:gsyVideoPlayer-java:6.0.1'
+    api 'com.shuyu:gsyVideoPlayer-armv5:6.0.1'
+    api 'com.shuyu:gsyVideoPlayer-armv7a:6.0.1'
 }
