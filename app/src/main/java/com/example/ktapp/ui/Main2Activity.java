@@ -48,7 +48,7 @@ public class Main2Activity extends BaseDataBindActivity<ActivityMainDataBinding>
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestPermissions();
-//        ArcGISRuntimeEnvironment.setLicense(runtimeKey);
+        ArcGISRuntimeEnvironment.setLicense(runtimeKey);
         dataBind.deleteImgTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
