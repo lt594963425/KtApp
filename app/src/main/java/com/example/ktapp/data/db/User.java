@@ -1,5 +1,8 @@
 package com.example.ktapp.data.db;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Ignore;
@@ -15,7 +18,7 @@ import androidx.room.PrimaryKey;
  * @UpdateUser: 更新者
  */
 @Entity
-public class User {
+public class User implements Parcelable {
     @PrimaryKey(autoGenerate = true)//主键是否自动增长，默认为false
     private int id;
     private String name;
@@ -30,6 +33,25 @@ public class User {
         this.age = age;
         this.sex = sex;
     }
+
+    protected User(Parcel in) {
+        id = in.readInt();
+        name = in.readString();
+        age = in.readString();
+        sex = in.readString();
+    }
+
+    public static final Creator<User> CREATOR = new Creator<User>() {
+        @Override
+        public User createFromParcel(Parcel in) {
+            return new User(in);
+        }
+
+        @Override
+        public User[] newArray(int size) {
+            return new User[size];
+        }
+    };
 
     public int getId() {
         return id;
@@ -71,5 +93,18 @@ public class User {
                 ", age='" + age + '\'' +
                 ", sex='" + sex + '\'' +
                 '}';
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeString(name);
+        dest.writeString(age);
+        dest.writeString(sex);
     }
 }

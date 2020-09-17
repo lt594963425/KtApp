@@ -386,10 +386,8 @@ public class GisMapActivity extends BaseDataBindActivity<ActivityGisMapBinding> 
                 if (dataSourceStatusChangedEvent.isStarted() || dataSourceStatusChangedEvent.getError() == null) {
                     return;
                 }
-
                 int requestPermissionsCode = 2;
                 String[] requestPermissions = new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION};
-
                 if (!(ContextCompat.checkSelfPermission(GisMapActivity.this, requestPermissions[0]) == PackageManager.PERMISSION_GRANTED
                         && ContextCompat.checkSelfPermission(GisMapActivity.this, requestPermissions[1]) == PackageManager.PERMISSION_GRANTED)) {
                     ActivityCompat.requestPermissions(GisMapActivity.this, requestPermissions, requestPermissionsCode);
@@ -431,14 +429,13 @@ public class GisMapActivity extends BaseDataBindActivity<ActivityGisMapBinding> 
 
     public void loadMapData() {
         setupMap();
-//        setupOfflineMap();
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-//                copyAssets();
-                setupOfflineMap();
-            }
-        }).start();
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+////                copyAssets();
+//                setupOfflineMap();
+//            }
+//        }).start();
     }
 
     /**
@@ -449,7 +446,7 @@ public class GisMapActivity extends BaseDataBindActivity<ActivityGisMapBinding> 
         String fileNamess = "offline-maps-package.mmpk";
         File file = new File(Environment.getExternalStorageDirectory().getPath() + "/ArcGISMap/");
         File file2 = new File(file.getAbsolutePath() + "/" + fileNamess);
-        if (!file2.exists()){
+        if (!file2.exists()) {
             FileUtils.copyAssets(file, fileNamess);
         }
 //        File path = getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS);
@@ -491,8 +488,6 @@ public class GisMapActivity extends BaseDataBindActivity<ActivityGisMapBinding> 
                         }
                     }
                 });
-
-
                 mapPackage.loadAsync();
             }
         });

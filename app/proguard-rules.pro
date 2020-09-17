@@ -19,3 +19,10 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+-keep class com.example.ktapp.data.db.User { *; }
+-keep class com.example.ktapp.IMyAidlInterface { *; }
+-keepclasseswithmembers class com.example.ktapp.data.db.User {
+    *** get*();
+    void set*(***);
+    String toString();
+}
